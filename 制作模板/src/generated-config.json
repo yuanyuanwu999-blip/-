@@ -1,0 +1,108 @@
+{
+  "productName": "",
+  "compositionId": "BatchVideo",
+  "width": 1080,
+  "height": 1920,
+  "fps": 24,
+  "duration": {
+    "targetSeconds": 20,
+    "transitionSeconds": 0.35,
+    "trimStrategy": "balanced-fluid"
+  },
+  "segments": {
+    "a": {
+      "sourcePath": "",
+      "durationSeconds": 0
+    },
+    "b": {
+      "sourcePath": "",
+      "durationSeconds": 0
+    }
+  },
+  "voiceover": {
+    "sourcePath": "配音稿.txt",
+    "mode": "ai",
+    "humanAudioPath": "",
+    "provider": "edge-neural",
+    "voice": "zh-CN-XiaoyiNeural",
+    "rate": "+12%",
+    "pitch": "+0Hz",
+    "startMs": 120,
+    "gapMs": 100,
+    "durationPolicy": {
+      "maxVoicePlaybackRate": 1.4,
+      "slowVideoWhenNeeded": true,
+      "minimumVideoPlaybackRate": 0.9
+    },
+    "selectionMode": "fixed"
+  },
+  "audio": {
+    "voiceoverVolume": 1,
+    "environmentVolume": 0,
+    "backgroundMusicVolume": 0.4,
+    "sourceVoicePolicy": "separate-detect-or-mute"
+  },
+  "music": {
+    "mode": "auto",
+    "category": "tea-light",
+    "sourcePath": "public/music/舒缓养生_Relaxation05.wav",
+    "selectionMode": "fixed"
+  },
+  "captions": {
+    "fontFamily": "Noto Sans SC Black, Microsoft YaHei, sans-serif",
+    "fontSize": 52,
+    "fontWeight": 900,
+    "strokeWidth": 3,
+    "color": "#FFFFFF",
+    "bottom": 380
+  },
+  "cover": {
+    "fontStyle": "站酷快乐体"
+  },
+  "export": {
+    "platform": "xiaohongshu",
+    "presets": {
+      "universal": {
+        "label": "通用高清",
+        "crf": 15
+      },
+      "douyin": {
+        "label": "抖音",
+        "crf": 17
+      },
+      "wechat": {
+        "label": "视频号",
+        "crf": 17
+      },
+      "xiaohongshu": {
+        "label": "小红书",
+        "crf": 17
+      }
+    }
+  },
+  "outputPath": "输出/正式成片.mp4",
+  "totalSeconds": 20,
+  "sourceVideoSeconds": 19.926,
+  "timeline": {
+    "targetSeconds": 20,
+    "transitionSeconds": 0,
+    "aSeconds": 10,
+    "bSeconds": 10,
+    "bStartSeconds": 10,
+    "trimStrategy": "preserve-short-fill-from-long",
+    "videoPlaybackRate": 0.9963
+  },
+  "videoPlaybackRate": 0.9963,
+  "voiceoverPlaybackRate": 1.3681100356597045,
+  "sourceAudioMode": false,
+  "assets": {
+    "a": "generated/a.mp4",
+    "b": "generated/b.mp4",
+    "environmentA": "generated/environment-a.wav",
+    "environmentB": "generated/environment-b.wav",
+    "sourceAudioReport": "generated/source-audio-report.json",
+    "captions": "generated/captions.json",
+    "backgroundMusic": "generated/background-music.wav"
+  },
+  "voiceoverSegments": []
+}

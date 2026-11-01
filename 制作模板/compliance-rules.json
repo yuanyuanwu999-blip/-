@@ -1,0 +1,33 @@
+{
+  "version": "2026-07-15",
+  "notice": "这是内部自动初审词库，不替代平台最新规则和人工审核。",
+  "rules": [
+    {"term": "根治", "level": "block", "category": "医疗功效", "suggestion": "删除绝对化治疗表述"},
+    {"term": "治愈", "level": "block", "category": "医疗功效", "suggestion": "删除治疗结果承诺"},
+    {"term": "治疗", "level": "block", "category": "医疗功效", "suggestion": "改为客观描述产品或使用体验"},
+    {"term": "药到病除", "level": "block", "category": "医疗功效", "suggestion": "删除疾病治疗承诺"},
+    {"term": "抗癌", "level": "block", "category": "疾病宣传", "suggestion": "删除疾病预防或治疗表述"},
+    {"term": "防癌", "level": "block", "category": "疾病宣传", "suggestion": "删除疾病预防或治疗表述"},
+    {"term": "降血压", "level": "block", "category": "疾病宣传", "suggestion": "删除疾病指标改善承诺"},
+    {"term": "降血糖", "level": "block", "category": "疾病宣传", "suggestion": "删除疾病指标改善承诺"},
+    {"term": "无副作用", "level": "block", "category": "绝对承诺", "suggestion": "删除绝对安全承诺"},
+    {"term": "百分之百", "level": "block", "category": "绝对化用语", "suggestion": "改为可证实的客观信息"},
+    {"term": "100%有效", "level": "block", "category": "绝对化用语", "suggestion": "删除效果保证"},
+    {"term": "立刻见效", "level": "block", "category": "效果承诺", "suggestion": "删除即时效果保证"},
+    {"term": "补血养气", "level": "review", "category": "保健功效", "suggestion": "改为原料、口感或饮用场景描述"},
+    {"term": "补血", "level": "review", "category": "保健功效", "suggestion": "改为客观原料信息"},
+    {"term": "养气", "level": "review", "category": "保健功效", "suggestion": "改为客观原料信息"},
+    {"term": "养生", "level": "review", "category": "保健功效", "suggestion": "根据平台要求改为日常饮用或生活方式描述"},
+    {"term": "排毒", "level": "review", "category": "身体功效", "suggestion": "删除未经证实的身体功效"},
+    {"term": "祛湿", "level": "review", "category": "身体功效", "suggestion": "改为客观使用感受且避免功效保证"},
+    {"term": "提高免疫力", "level": "review", "category": "身体功效", "suggestion": "删除或提供合规依据后人工确认"},
+    {"term": "改善睡眠", "level": "review", "category": "身体功效", "suggestion": "改为睡前场景或放松体验描述"},
+    {"term": "助眠", "level": "review", "category": "身体功效", "suggestion": "改为睡前饮用场景描述"},
+    {"term": "减肥", "level": "review", "category": "体重功效", "suggestion": "删除体重结果承诺"},
+    {"term": "美白", "level": "review", "category": "美容功效", "suggestion": "改为可证实的客观描述"},
+    {"term": "抗衰老", "level": "review", "category": "美容功效", "suggestion": "删除未经证实的功效表述"},
+    {"term": "调理身体", "level": "review", "category": "身体功效", "suggestion": "改为具体、可验证的日常体验"},
+    {"term": "最有效", "level": "review", "category": "极限词", "suggestion": "删除最高级比较"},
+    {"term": "第一", "level": "review", "category": "极限词", "suggestion": "如无权威依据请删除"}
+  ]
+}

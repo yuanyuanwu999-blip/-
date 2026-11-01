@@ -1,0 +1,17 @@
+{
+  "name": "video-batch-assistant-template",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.489",
+    "@remotion/media": "4.0.489",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.489"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3"
+  }
+}
