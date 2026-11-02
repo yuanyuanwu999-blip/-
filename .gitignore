@@ -4,8 +4,6 @@ runtime/
 制作模板/out/
 制作模板/.video-assistant/
 制作模板/public/generated/
-制作模板/public/music/*.wav
-制作模板/public/music/*.mp3
 生成的视频/
 批量任务/
 *.log
