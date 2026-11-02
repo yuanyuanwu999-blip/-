@@ -4,7 +4,7 @@
 
 $ErrorActionPreference = 'Stop'
 $appDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$desktop = 'C:\Users\Administrator\Desktop'
+$desktop = [Environment]::GetFolderPath('Desktop')
 $catalogPath = Join-Path $desktop '员工知识库投喂\02产品资料\九款产品事实表.md'
 $bLibrary = Join-Path $desktop '九款B段素材库'
 $queueFolder = Join-Path $appDir '批量任务'

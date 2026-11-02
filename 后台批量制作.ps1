@@ -246,8 +246,10 @@ try {
             Save-Queue $queue $queuePath
             if ($Mode -eq 'Preview' -and $job.notifyChannel -eq 'feishu' -and $job.notifyTarget) {
                 try {
-                    $openClawNode = 'C:\Program Files\nodejs\node.exe'
-                    $openClawCli = 'C:\Users\Administrator\AppData\Roaming\npm\node_modules\openclaw\openclaw.mjs'
+                    $openClawNode = (Get-Command node.exe -ErrorAction Stop).Source
+                    $npmRoot = (& npm root -g 2>$null | Select-Object -Last 1).Trim()
+                    $openClawCli = Join-Path $npmRoot 'openclaw\openclaw.mjs'
+                    if (-not (Test-Path -LiteralPath $openClawCli)) { throw '此电脑没有安装OpenClaw，已跳过飞书通知。' }
                     $accountId = if ($job.notifyAccount) { [string]$job.notifyAccount } else { 'default' }
                     $transcriptForNotice = (Get-Content -LiteralPath $job.transcriptPath -Raw -Encoding UTF8).Trim()
                     $voiceNameForNotice = if ($job.voiceConfig -and $job.voiceConfig.name) { [string]$job.voiceConfig.name } else { '已配置配音' }

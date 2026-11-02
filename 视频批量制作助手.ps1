@@ -1263,7 +1263,7 @@ if ($args -contains '--batch-self-test') {
     try {
         New-Item -ItemType Directory -Path $testRoot -Force | Out-Null
         $voices = @(Get-AiVoiceCatalog)
-        $musicFiles = @(Get-ChildItem -LiteralPath (Join-Path $builtInProject 'public\music') -Filter '*.wav' -File | Sort-Object Name)
+        $musicFiles = @(Get-ChildItem -LiteralPath (Join-Path $builtInProject 'public\music') -File | Where-Object {$_.Extension -match '^\.(wav|mp3)$'} | Sort-Object Name)
         $jobs = @()
         1..3 | ForEach-Object {
             $index = $_

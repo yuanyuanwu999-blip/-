@@ -1,6 +1,9 @@
 node_modules/
-runtime/
-.tools/
+runtime/*
+!runtime/fonts/
+!runtime/fonts/*.ttf
+!runtime/声音试听/
+!runtime/声音试听/*.mp3
 制作模板/out/
 制作模板/.video-assistant/
 制作模板/public/generated/
@@ -8,4 +11,6 @@ runtime/
 批量任务/
 *.log
 *.tmp
+__pycache__/
+*.pyc
 
