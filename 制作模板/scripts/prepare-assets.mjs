@@ -270,6 +270,15 @@ export const allocateTimeline = ({aSeconds, bSeconds, targetSeconds, requestedTr
 
 export const prepareAssets = async ({onProgress = async () => {}} = {}) => {
   const config = JSON.parse(await readFile(join(root, "video.config.json"), "utf8"));
+  // Old saved projects and queued jobs may still contain the former +22% to
+  // +28% settings. Cap them here as well, so reopening the UI is not required
+  // and a batch job can never silently return to the mechanical fast voice.
+  if (config.voiceover?.mode === "ai") {
+    const savedRate = Number.parseFloat(String(config.voiceover.rate ?? "+0%").replace("%", "")) || 0;
+    const naturalRate = Math.max(-5, Math.min(8, savedRate));
+    config.voiceover.rate = `${naturalRate >= 0 ? "+" : ""}${naturalRate}%`;
+    config.voiceover.pitch = "+0Hz";
+  }
   const generated = join(root, "public", "generated");
   await rm(generated, {recursive: true, force: true});
   await mkdir(generated, {recursive: true});
@@ -441,7 +450,10 @@ export const prepareAssets = async ({onProgress = async () => {}} = {}) => {
     await mkdir(voiceDir, {recursive: true});
     // Use the untouched transcript for speech. Caption wrapping must never insert
     // pauses into the spoken sentence (for example “人 的状态”).
-    const fullText = scriptLines.join(" ");
+    // Treat each pasted line as a natural thought unit. If the user omitted
+    // punctuation, add a sentence stop between lines so the voice does not run
+    // everything together. Existing punctuation is kept exactly as entered.
+    const fullText = scriptLines.map((line) => /[。！？!?；;，,：:]$/.test(line) ? line : `${line}。`).join("");
     const fullOutput = join(voiceDir, "voice-full.mp3");
     const fullCacheKey = sha256Text(JSON.stringify({text: fullText, voice: config.voiceover.voice, rate: config.voiceover.rate, pitch: config.voiceover.pitch, provider: "edge-online-full-v2"}));
     const fullCached = join(ttsCacheDir, `${fullCacheKey}.mp3`);
@@ -459,18 +471,11 @@ export const prepareAssets = async ({onProgress = async () => {}} = {}) => {
           rate: config.voiceover.rate, pitch: config.voiceover.pitch,
           output: fullOutput, onProgress: (message) => onProgress(54, message),
         });
-      } catch {
-        usedNaturalFallback = true;
-        await onProgress(54, "微软自然配音暂时不可用，正在切换免费自然语音备用连接");
-        try {
-          await copyFile(fallbackCached, fullOutput);
-        } catch {
-          await generateGoogleNaturalTts({
-            gttsCli, ffmpeg: trimFfmpeg, text: fullText,
-            rate: config.voiceover.rate, output: fullOutput,
-          });
-          await copyFile(fullOutput, fallbackCached);
-        }
+      } catch (error) {
+        // Never replace a selected natural Edge voice with a different,
+        // mechanical provider. That made previews and final videos sound like
+        // two different people. Stop clearly and let the user retry instead.
+        throw new Error(`自然AI配音连接暂时不可用，没有使用机械备用声音。请稍后点击失败重试。原因：${String(error?.message || error)}`);
       }
       if (!usedNaturalFallback) await copyFile(fullOutput, fullCached);
       await rm(edgeHealthPath, {force: true});
@@ -612,7 +617,9 @@ export const prepareAssets = async ({onProgress = async () => {}} = {}) => {
   let voiceoverPlaybackRate = 1;
   // Keep a short natural tail before the video ends instead of cutting the last syllable.
   const availableVoiceMs = targetSeconds * 1000 - 250;
-  const maximumVoicePlaybackRate = Math.min(1.4, Number(durationPolicy.maxVoicePlaybackRate ?? 1.4));
+  // Large post-speedups make even a natural neural voice sound mechanical.
+  // Keep the final adjustment subtle; ask for a shorter script instead.
+  const maximumVoicePlaybackRate = Math.min(1.18, Number(durationPolicy.maxVoicePlaybackRate ?? 1.18));
   if (rawVoiceEndMs > availableVoiceMs) {
     voiceoverPlaybackRate = (rawVoiceEndMs - startMs) / Math.max(1, availableVoiceMs - startMs);
     if (voiceoverPlaybackRate > maximumVoicePlaybackRate + 0.001) throw new Error(`配音稿明显超过${targetSeconds.toFixed(0)}秒，适度提速到${maximumVoicePlaybackRate.toFixed(1)}倍仍无法自然讲完；请缩短文案，或关闭AI声音并保留素材原口播`);

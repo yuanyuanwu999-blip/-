@@ -25,12 +25,12 @@
                       "humanAudioPath":  "",
                       "provider":  "edge-neural",
                       "voice":  "zh-CN-XiaoyiNeural",
-                      "rate":  "+12%",
+                     "rate":  "+5%",
                       "pitch":  "+0Hz",
                       "startMs":  120,
                       "gapMs":  100,
                       "durationPolicy":  {
-                                             "maxVoicePlaybackRate":  1.4,
+                                            "maxVoicePlaybackRate":  1.18,
                                              "slowVideoWhenNeeded":  true,
                                              "minimumVideoPlaybackRate":  0.9
                                          },

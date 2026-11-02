@@ -96,11 +96,11 @@ function Save-TranscriptText([string]$text, [string]$targetPath) {
 
 function Get-AiVoiceCatalog {
     return @(
-        [PSCustomObject]@{Name='自然生活女声'; Voice='zh-CN-XiaoyiNeural'; Rate='+12%'; Pitch='+0Hz'},
-        [PSCustomObject]@{Name='自然成熟女声'; Voice='zh-CN-XiaoxiaoNeural'; Rate='+10%'; Pitch='+0Hz'},
-        [PSCustomObject]@{Name='自然青年男声'; Voice='zh-CN-YunxiNeural'; Rate='+12%'; Pitch='+0Hz'},
-        [PSCustomObject]@{Name='沉稳运动男声'; Voice='zh-CN-YunjianNeural'; Rate='+10%'; Pitch='+0Hz'},
-        [PSCustomObject]@{Name='自然讲解男声'; Voice='zh-CN-YunyangNeural'; Rate='+10%'; Pitch='+0Hz'}
+        [PSCustomObject]@{Name='自然生活女声'; Voice='zh-CN-XiaoyiNeural'; Rate='+5%'; Pitch='+0Hz'},
+        [PSCustomObject]@{Name='自然成熟女声'; Voice='zh-CN-XiaoxiaoNeural'; Rate='+3%'; Pitch='+0Hz'},
+        [PSCustomObject]@{Name='自然青年男声'; Voice='zh-CN-YunxiNeural'; Rate='+5%'; Pitch='+0Hz'},
+        [PSCustomObject]@{Name='沉稳运动男声'; Voice='zh-CN-YunjianNeural'; Rate='+3%'; Pitch='+0Hz'},
+        [PSCustomObject]@{Name='自然讲解男声'; Voice='zh-CN-YunyangNeural'; Rate='+2%'; Pitch='+0Hz'}
     )
 }
 
@@ -1263,7 +1263,7 @@ if ($args -contains '--batch-self-test') {
     try {
         New-Item -ItemType Directory -Path $testRoot -Force | Out-Null
         $voices = @(Get-AiVoiceCatalog)
-        $musicFiles = @(Get-ChildItem -LiteralPath (Join-Path $builtInProject 'public\music') -File | Where-Object {$_.Extension -match '^\.(wav|mp3)$'} | Sort-Object Name)
+        $musicFiles = @(Get-ChildItem -LiteralPath (Join-Path $builtInProject 'public\music') -Filter '*.wav' -File | Sort-Object Name)
         $jobs = @()
         1..3 | ForEach-Object {
             $index = $_
@@ -1803,12 +1803,12 @@ $voiceCombo.Add_SelectedIndexChanged({
         $folder = Get-ProjectFolder
         $config = Get-Config $folder
         $voiceMap = @{
-            '温柔生活女声' = @('zh-CN-XiaoyiNeural', '+28%', '-2Hz')
-            '温柔成熟女声' = @('zh-CN-XiaoxiaoNeural', '+28%', '-3Hz')
-            '自然青年男声' = @('zh-CN-YunxiNeural', '+28%', '-2Hz')
-            '活力运动男声' = @('zh-CN-YunjianNeural', '+24%', '-2Hz')
-            '专业新闻男声' = @('zh-CN-YunyangNeural', '+22%', '-2Hz')
-            '可爱年轻男声' = @('zh-CN-YunxiaNeural', '+26%', '+1Hz')
+            '温柔生活女声' = @('zh-CN-XiaoyiNeural', '+5%', '+0Hz')
+            '温柔成熟女声' = @('zh-CN-XiaoxiaoNeural', '+3%', '+0Hz')
+            '自然青年男声' = @('zh-CN-YunxiNeural', '+5%', '+0Hz')
+            '活力运动男声' = @('zh-CN-YunjianNeural', '+4%', '+0Hz')
+            '专业新闻男声' = @('zh-CN-YunyangNeural', '+2%', '+0Hz')
+            '可爱年轻男声' = @('zh-CN-YunxiaNeural', '+4%', '+1Hz')
         }
         $voiceSettings = $voiceMap[$voiceCombo.SelectedItem.ToString()]
         $config.voiceover.voice = $voiceSettings[0]

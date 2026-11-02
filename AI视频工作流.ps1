@@ -83,9 +83,9 @@ function Get-Hash([string]$value) {
 
 function Select-Voice {
     $voices = @(
-        [PSCustomObject]@{ name='温柔生活女声'; voice='zh-CN-XiaoyiNeural'; rate='+28%'; pitch='-2Hz' },
-        [PSCustomObject]@{ name='温柔成熟女声'; voice='zh-CN-XiaoxiaoNeural'; rate='+28%'; pitch='-3Hz' },
-        [PSCustomObject]@{ name='自然青年男声'; voice='zh-CN-YunxiNeural'; rate='+28%'; pitch='-2Hz' }
+        [PSCustomObject]@{ name='温柔生活女声'; voice='zh-CN-XiaoyiNeural'; rate='+5%'; pitch='+0Hz' },
+        [PSCustomObject]@{ name='温柔成熟女声'; voice='zh-CN-XiaoxiaoNeural'; rate='+3%'; pitch='+0Hz' },
+        [PSCustomObject]@{ name='自然青年男声'; voice='zh-CN-YunxiNeural'; rate='+5%'; pitch='+0Hz' }
     )
     $state = Read-JsonFile $statePath ([PSCustomObject]@{ lastVoice=''; updatedAt='' })
     $available = @($voices | Where-Object { $_.voice -ne [string]$state.lastVoice })
