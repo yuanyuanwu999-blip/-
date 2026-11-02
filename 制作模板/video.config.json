@@ -45,7 +45,7 @@
     "music":  {
                   "mode":  "auto",
                   "category":  "tea-light",
-                  "sourcePath":  "public/music/舒缓养生_Relaxation05.wav",
+                  "sourcePath":  "public/music/舒缓养生_Relaxation05.mp3",
                   "selectionMode":  "fixed"
               },
     "captions":  {
